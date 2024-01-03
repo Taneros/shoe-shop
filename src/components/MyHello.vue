@@ -1,7 +1,6 @@
 <script setup>
 // setup == work using composition API
 
-
 </script>
 
 <template>

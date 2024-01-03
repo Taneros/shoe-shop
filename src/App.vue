@@ -1,10 +1,10 @@
 <script setup>
-import MyHelloVue from './components/MyHello.vue';
+import Counter from './components/Counter.vue'
+
 </script>
 
 <template>
-  <p class="text">Text in App</p>
-  <MyHelloVue />
+  <Counter />
 </template>
 
 <style scoped>
