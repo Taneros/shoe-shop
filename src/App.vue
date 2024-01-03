@@ -1,16 +1,12 @@
 <script setup>
-import Props from './components/Props.vue'
+import HeaderVue from './components/Header.vue';
 
 </script>
 
 <template>
-  <Props title="Title" subtitle="Subtitle" :number="123" :boolean="false"/>
-  <Props title="With slot">
-    <p>Put in the slot</p>
-  </Props>
-
+  <div class="w-4/5 mx-auto bg-white min-h-full rounded-xl shadow-xl mt-14">
+    <HeaderVue />
+  </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
