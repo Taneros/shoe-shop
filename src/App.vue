@@ -1,10 +1,14 @@
 <script setup>
-import Counter from './components/Counter.vue'
+import Props from './components/Props.vue'
 
 </script>
 
 <template>
-  <Counter />
+  <Props title="Title" subtitle="Subtitle" :number="123" :boolean="false"/>
+  <Props title="With slot">
+    <p>Put in the slot</p>
+  </Props>
+
 </template>
 
 <style scoped>
