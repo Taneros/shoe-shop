@@ -1,10 +1,13 @@
 <script setup>
 import CardList from './components/CardList.vue';
+import Drawer from './components/Drawer.vue';
 import Header from './components/Header.vue'
 </script>
 
 <template>
-  <div class="w-4/5 mx-auto bg-white min-h-full rounded-xl shadow-xl mt-14">
+  <Drawer />
+
+  <div class="w-4/5 mx-auto bg-white min-h-full rounded-xl shadow-xl">
     <Header />
 
     <div class="p-10">
@@ -14,5 +17,3 @@ import Header from './components/Header.vue'
     </div>
   </div>
 </template>
-
-<style scoped></style>
