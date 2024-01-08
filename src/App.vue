@@ -1,5 +1,5 @@
 <script setup>
-import {onMounted, ref, watch} from 'vue';
+import {onMounted, reactive, ref, watch} from 'vue';
 
 import CardList from './components/CardList.vue';
 // import Drawer from './components/Drawer.vue';
@@ -13,13 +13,24 @@ import SearchFilter from './components/SearchFilter.vue';
 
 const responseData = ref( [] )
 
-const urlGetAll = 'https://604781a0efa572c1.mokky.dev/items'
+const filters = reactive( {
+  sortBy: '',
+  searchQuery: ''
+} )
 
-const options = {}
-
-const fetchData = async ( url ) => {
+const fetchData = async () => {
   try {
-    const response = await fetch( url, options )
+    let url = 'https://604781a0efa572c1.mokky.dev/items'
+
+    if ( filters.sortBy !== '' ) {
+      url += `?sortBy=${ filters.sortBy }`;
+    }
+
+    if ( filters.searchQuery !== '' ) {
+      url += `${ filters.sortBy !== '' ? '&' : '?' }title=*${ filters.searchQuery }*`;
+    }
+
+    const response = await fetch( url )
 
     const data = await response.json()
 
@@ -34,29 +45,17 @@ const fetchData = async ( url ) => {
 }
 
 onMounted( () => {
-  fetchData( urlGetAll )
+  fetchData()
 } )
 
-const sortBy = ref( '' )
-const searchQuery = ref( '' )
-
-const sortByUrl = 'https://604781a0efa572c1.mokky.dev/items?sortBy='
-const searchUrl = 'https://604781a0efa572c1.mokky.dev/items?title='
-
-watch( sortBy, async () => {
-  fetchData( sortByUrl + sortBy.value )
-} )
-
-watch( searchQuery, async () => {
-  fetchData( sortByUrl + sortBy.value + '?title=' + `*${ searchQuery.value }*` )
-} )
+watch( filters, fetchData )
 
 const onChangeSelect = event => {
-  sortBy.value = event.target.value
+  filters.sortBy = event.target.value
 }
 
 const onChangeSearch = ( event ) => {
-  searchQuery.value = event.target.value
+  filters.searchQuery = event.target.value
 }
 
 </script>

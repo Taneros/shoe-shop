@@ -23,7 +23,7 @@ defineProps( {
         <img src="/search.svg" alt="Search"
              class="absolute top-1/2 left-3 transform -translate-y-1/2">
         <input
-               @change="onChangeSearch"
+               @input="onChangeSearch"
                class=" border rounded-md py-2 pl-10 pr-4 outline-none focus:border-gray-400 transition"
                type="text"
                placeholder="Поиск...">
