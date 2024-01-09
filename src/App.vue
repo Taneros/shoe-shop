@@ -11,7 +11,25 @@ import SearchFilter from './components/SearchFilter.vue';
   * refactor to services
   **/
 
-const responseData = ref( [] )
+const favoriteList = ref( [] )
+
+const fetchFavorites = async () => {
+  try {
+    let url = 'https://ed1de7919bc7a5d8.mokky.dev/favorites'
+
+    const response = await fetch( url )
+
+    const data = await response.json()
+
+    itemList.value = data
+
+  } catch ( error ) {
+    console.error( 'Error fetching data', error )
+  }
+}
+
+
+const itemList = ref( [] )
 
 const filters = reactive( {
   sortBy: '',
@@ -36,9 +54,9 @@ const fetchData = async () => {
 
     console.log( `src/App.vue App.vue - line: 21 ->> data`, data )
 
-    responseData.value = data
+    itemList.value = data
 
-    console.log( `src/App.vue App.vue - line: 23 ->> responseData.value`, responseData.value )
+    console.log( `src/App.vue App.vue - line: 23 ->> responseData.value`, itemList.value )
   } catch ( error ) {
     console.error( 'Error fetching data', error )
   }
@@ -69,7 +87,7 @@ const onChangeSearch = ( event ) => {
     <div class="p-10">
       <SearchFilter :onChangeSelect="onChangeSelect" :onChangeSearch="onChangeSearch" />
 
-      <CardList :items="responseData" />
+      <CardList :items="itemList" />
 
     </div>
   </div>
