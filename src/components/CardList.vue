@@ -3,7 +3,8 @@
 import Card from './Card.vue'
 
 defineProps( {
-  items: Array
+  items: Array,
+  favorites: Array,
 } )
 
 const onClickAdd = () => {
@@ -20,7 +21,7 @@ const onClickAdd = () => {
           :image-url="item.imageUrl"
           :price="item.price"
           :is-added="true"
-          :is-favorite="true"
+          :is-favorite="favorites.some((favorite) => favorite.parentId === item.id)"
           :onClickAdd="onClickAdd" />
   </div>
 </template>

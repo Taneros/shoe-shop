@@ -13,7 +13,7 @@ import SearchFilter from './components/SearchFilter.vue';
 
 const favoriteList = ref( [] )
 
-const fetchFavorites = async () => {
+const fetchFavoriteList = async () => {
   try {
     let url = 'https://ed1de7919bc7a5d8.mokky.dev/favorites'
 
@@ -21,7 +21,7 @@ const fetchFavorites = async () => {
 
     const data = await response.json()
 
-    itemList.value = data
+    favoriteList.value = data
 
   } catch ( error ) {
     console.error( 'Error fetching data', error )
@@ -36,7 +36,7 @@ const filters = reactive( {
   searchQuery: ''
 } )
 
-const fetchData = async () => {
+const fetchItemList = async () => {
   try {
     let url = 'https://604781a0efa572c1.mokky.dev/items'
 
@@ -63,10 +63,11 @@ const fetchData = async () => {
 }
 
 onMounted( () => {
-  fetchData()
+  fetchItemList()
+  fetchFavoriteList()
 } )
 
-watch( filters, fetchData )
+watch( filters, fetchItemList )
 
 const onChangeSelect = event => {
   filters.sortBy = event.target.value
@@ -87,7 +88,7 @@ const onChangeSearch = ( event ) => {
     <div class="p-10">
       <SearchFilter :onChangeSelect="onChangeSelect" :onChangeSearch="onChangeSearch" />
 
-      <CardList :items="itemList" />
+      <CardList :items="itemList" :favorites="favoriteList" />
 
     </div>
   </div>
