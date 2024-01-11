@@ -77,6 +77,20 @@ const onChangeSearch = ( event ) => {
   filters.searchQuery = event.target.value
 }
 
+const addFavorite = async ( id ) => {
+  console.log( `src/App.vue App.vue - line: 81 ->> addFavorite`, id )
+
+  const favoriteItem = favoriteList.value.find( ( favorite ) => favorite.parentId === id )
+
+  if ( !favoriteItem ) {
+    favoriteList.value.push( {parentId: id} )
+  }
+
+  if ( favoriteItem ) {
+    favoriteList.value.splice( favoriteList.value.findIndex( ( item ) => item.parentId === id ), 1 )
+  }
+}
+
 </script>
 
 <template>
@@ -88,7 +102,7 @@ const onChangeSearch = ( event ) => {
     <div class="p-10">
       <SearchFilter :onChangeSelect="onChangeSelect" :onChangeSearch="onChangeSearch" />
 
-      <CardList :items="itemList" :favorites="favoriteList" />
+      <CardList :items="itemList" :favorites="favoriteList" :addFavorite="addFavorite" />
 
     </div>
   </div>

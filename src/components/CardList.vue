@@ -5,6 +5,7 @@ import Card from './Card.vue'
 defineProps( {
   items: Array,
   favorites: Array,
+  addFavorite: Function
 } )
 
 const onClickAdd = () => {
@@ -22,6 +23,7 @@ const onClickAdd = () => {
           :price="item.price"
           :is-added="true"
           :is-favorite="favorites.some((favorite) => favorite.parentId === item.id)"
+          :addFavorite="addFavorite.bind(null, item.id)"
           :onClickAdd="onClickAdd" />
   </div>
 </template>
